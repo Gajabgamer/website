@@ -1,0 +1,178 @@
+{
+    "name": "Webate Internal Automations",
+    "nodes": [
+        {
+            "parameters": {
+                "path": "webhook-test/webate-automation/signup",
+                "options": {}
+            },
+            "name": "Supabase Webhook (Signup)",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                200,
+                200
+            ]
+        },
+        {
+            "parameters": {
+                "path": "webhook-test/webate-automation/quote",
+                "options": {}
+            },
+            "name": "Supabase Webhook (Quote)",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                200,
+                400
+            ]
+        },
+        {
+            "parameters": {
+                "path": "webhook-test/webate-automation/audit",
+                "options": {}
+            },
+            "name": "Supabase Webhook (Audit)",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                200,
+                600
+            ]
+        },
+        {
+            "parameters": {
+                "fromEmail": "webatexyz@outlook.com",
+                "toEmail": "={{$json.body.record.email}}",
+                "subject": "Welcome to Webate 🚀",
+                "text": "Hi {{$json.body.record.name}},\n\nWelcome to Webate.\n\nYou can now explore website tools, request audits, and build high-performance websites for your business.\n\nWebate Team\nwebate.xyz",
+                "options": {}
+            },
+            "name": "Send Welcome Email",
+            "type": "n8n-nodes-base.emailSend",
+            "typeVersion": 2,
+            "position": [
+                500,
+                200
+            ],
+            "retryOnFail": true,
+            "maxTries": 3
+        },
+        {
+            "parameters": {
+                "fromEmail": "webatexyz@outlook.com",
+                "toEmail": "={{$json.body.record.email}}",
+                "subject": "Your Webate Quote Request Has Been Received",
+                "text": "Hi {{$json.body.record.name}},\n\nWe have received your quote request.\n\nOur team will review your requirements and send a proposal soon.\n\nWebate Team",
+                "options": {}
+            },
+            "name": "Send Quote Confirmation Email",
+            "type": "n8n-nodes-base.emailSend",
+            "typeVersion": 2,
+            "position": [
+                500,
+                400
+            ],
+            "retryOnFail": true,
+            "maxTries": 3
+        },
+        {
+            "parameters": {
+                "fromEmail": "webatexyz@outlook.com",
+                "toEmail": "={{$json.body.record.email}}",
+                "subject": "Your Website Audit Has Started 🔍",
+                "text": "Hi {{$json.body.record.name}},\n\nYour website audit request has been received.\n\nOur system is currently analyzing your website for SEO, performance, and growth opportunities.\n\nYou will receive the results shortly.\n\nWebate Team",
+                "options": {}
+            },
+            "name": "Send Audit Confirmation Email",
+            "type": "n8n-nodes-base.emailSend",
+            "typeVersion": 2,
+            "position": [
+                500,
+                600
+            ],
+            "retryOnFail": true,
+            "maxTries": 3
+        },
+        {
+            "parameters": {
+                "command": "npx ts-node /automation/scripts/lead-score.ts '{{$json.body.record.email}}' '{{$json.body.type}}'"
+            },
+            "name": "Execute Lead Score Update",
+            "type": "n8n-nodes-base.executeCommand",
+            "typeVersion": 1,
+            "position": [
+                800,
+                400
+            ]
+        }
+    ],
+    "connections": {
+        "Supabase Webhook (Signup)": {
+            "main": [
+                [
+                    {
+                        "node": "Send Welcome Email",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Supabase Webhook (Quote)": {
+            "main": [
+                [
+                    {
+                        "node": "Send Quote Confirmation Email",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Supabase Webhook (Audit)": {
+            "main": [
+                [
+                    {
+                        "node": "Send Audit Confirmation Email",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Send Welcome Email": {
+            "main": [
+                [
+                    {
+                        "node": "Execute Lead Score Update",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Send Quote Confirmation Email": {
+            "main": [
+                [
+                    {
+                        "node": "Execute Lead Score Update",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Send Audit Confirmation Email": {
+            "main": [
+                [
+                    {
+                        "node": "Execute Lead Score Update",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}
