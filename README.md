@@ -1,73 +1,63 @@
 # website
-A Next.js project utilizing App Router and Pages Router for a robust frontend application.
+A web design and SEO services platform built with Next.js, utilizing App Router and Pages Router for a robust frontend application.
 
 ## Overview
-This repository contains a Next.js project with 42 engineering files across 12 module areas. The project leverages Next.js for its frontend application, utilizing both App Router and Pages Router. It also incorporates TypeScript for type checking and Supabase for data persistence.
+This repository contains a Next.js project that provides a web design and SEO services platform. The application is designed to help businesses grow their online presence with high-performance digital solutions. The platform includes features such as a demo request form, a lead submission form, and a sitemap.
 
 ## Core Capabilities
-* Frontend application surface with quality and regression coverage
-* HTTP/API boundary for secure data exchange
-* Data persistence layer using Supabase
-* CI/CD orchestration and AI/LLM integration layer
+* Health check API endpoint (`/api/health`) to verify the application's status and database connection
+* Lead submission API endpoint (`/api/lead`) to handle lead data from the frontend
+* Sitemap generation (`src/app/sitemap.ts`) to provide a list of URLs for search engine crawlers
+* Demo request form (`src/app/demo/page.tsx`) to allow users to request demos
+* Support for multiple industries and businesses
 
 ## Architecture
-The project's architecture is based on Next.js, with the App Router and Pages Router handling client-side routing. The frontend application surface is built using React, with TypeScript providing type checking. The data persistence layer is handled by Supabase, with environment variables used to configure the connection.
+The application is built using Next.js, with a modular structure that separates the frontend and backend logic. The frontend is handled by the `src/app` directory, while the backend is handled by the `src/lib` directory. The application uses Supabase as its database, with environment variables (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, etc.) used to configure the connection.
 
 ## Tech Stack
 | Technology | Version |
 | --- | --- |
 | Next.js | 16.1.6 |
+| TypeScript | ^5 |
+| Supabase | ^2.98.0 |
 | React | 19.2.3 |
-| React DOM | 19.2.3 |
-| TypeScript | - |
-| @supabase/supabase-js | ^2.98.0 |
-| @vercel/analytics | ^1.6.1 |
-| clsx | ^2.1.1 |
-| framer-motion | ^12.34.3 |
-| lucide-react | ^0.575.0 |
-| next-themes | ^0.4.6 |
-| tailwind-merge | ^3.5.0 |
+| Tailwind CSS | ^4 |
 
 ## Repository Structure
 The repository is organized into the following modules:
-* src/components: Frontend application surface, quality and regression coverage (17 files, low risk)
-* src/app: HTTP/API boundary, frontend application surface, quality and regression coverage (8 files, low risk)
-* automation: CI/CD orchestration, AI/LLM integration layer (6 files, low risk)
-* src/lib: Data persistence layer (3 files, low risk)
-* README.md: Repository module (1 file, low risk)
-* SUPABASE_SETUP.md: Repository module (1 file, low risk)
-* eslint.config.mjs: Repository module (1 file, low risk)
-* next.config.ts: Repository module (1 file, low risk)
+* `src/components`: Frontend application surface and quality/regression coverage
+* `src/app`: HTTP/API boundary and frontend application surface
+* `src/lib`: Data persistence layer
+* `automation`: CI/CD orchestration and AI/LLM integration layer
 
-## Local Development
-To start the development server, run the following command:
-```bash
-npm run dev
-```
-This will start the development server, and you can access the application at [http://localhost:3000](http://localhost:3000).
-
-## Environment Variables
-The following environment variables are required:
-* SUPABASE_URL: Application configuration variable
-* NEXT_PUBLIC_SUPABASE_URL: Application configuration variable
-* SUPABASE_SERVICE_ROLE_KEY: Application configuration variable
-* SUPABASE_ANON_KEY: Application configuration variable
-* NEXT_PUBLIC_SUPABASE_ANON_KEY: Application configuration variable
-
-## API Structure
-The API structure is not explicitly defined in the repository, but it is built using Next.js API routes.
+## API Reference
+### Health Check
+* **GET /api/health**: Returns the application's status and database connection information
+### Lead Submission
+* **POST /api/lead**: Handles lead data from the frontend and submits it to the database
 
 ## Database Layer
-The database layer is handled by Supabase, with the connection configured using environment variables.
+The application uses Supabase as its database, with the following models:
+* `leads`: Stores lead data, including name, email, phone, business, industry, and city
+* `calculator_requests`: Stores calculator request data, including pages, SEO option, marketing option, estimated price, and currency
+* `demo_requests`: Stores demo request data, including business name, industry, city, email, and color theme
+
+## Environment Variables
+The application requires the following environment variables:
+* `SUPABASE_URL`: The URL of the Supabase database
+* `NEXT_PUBLIC_SUPABASE_URL`: The public URL of the Supabase database
+* `SUPABASE_SERVICE_ROLE_KEY`: The service role key for the Supabase database
+* `SUPABASE_ANON_KEY`: The anonymous key for the Supabase database
+* `NEXT_PUBLIC_SUPABASE_ANON_KEY`: The public anonymous key for the Supabase database
+
+## Local Development
+To start the development server, run `npm run dev`. To build the application for production, run `npm run build`. To start the production server, run `npm run start`. To lint the codebase, run `npm run lint`.
 
 ## Deployment
-The deployment process is not explicitly defined in the repository, but it can be deployed using Vercel or other Next.js compatible platforms.
+The application can be deployed to a production environment using the `next start` command.
 
 ## Engineering Notes
-The project has 1 recorded incident in its history. The repository structure and tech stack are well-organized, but there is no CI/CD workflow defined.
-
-## License
-No license file is detected in the repository.
+The application has a recorded incident history, and the architecture data shows that there are no CI/CD workflows defined. The application uses a modular structure and environment variables to configure the database connection.
 
 ---
 
